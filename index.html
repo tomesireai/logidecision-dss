@@ -1,0 +1,64 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LogiDecision — СППР для логистики</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div><span class="brand">LogiDecision</span><span class="sub">СППР для логистической цепочки</span></div>
+    <div class="author">Семёнов Михаил Сергеевич · 15.27Д-ИСТ02/23б</div>
+  </header>
+  <main>
+    <section class="intro">
+      <div>
+        <p class="eyebrow">Творческое задание</p>
+        <h1>Выбор маршрута, перевозчика и срока доставки</h1>
+        <p>Система сравнивает альтернативы по цене, времени и надёжности. Результаты можно пересчитать при любых весах критериев.</p>
+      </div>
+      <div class="method-list"><b>Методы</b><span>Дейкстра</span><span>TOPSIS</span><span>PERT</span></div>
+    </section>
+    <nav>
+      <button class="tab active" data-tab="route">Маршрут</button>
+      <button class="tab" data-tab="carrier">Перевозчик</button>
+      <button class="tab" data-tab="schedule">Сроки</button>
+      <button class="tab" data-tab="scenarios">Сценарии</button>
+    </nav>
+    <section id="route" class="panel active">
+      <div class="controls">
+        <label>Откуда<select id="from"></select></label>
+        <label>Куда<select id="to"></select></label>
+        <label>Вес цены <output id="costOut"></output><input id="wCost" type="range" min="0" max="100" value="50"></label>
+        <label>Вес времени <output id="timeOut"></output><input id="wTime" type="range" min="0" max="100" value="30"></label>
+        <label>Вес надёжности <output id="riskOut"></output><input id="wRisk" type="range" min="0" max="100" value="20"></label>
+        <button id="calcRoute" class="primary">Рассчитать</button>
+      </div>
+      <div class="result">
+        <h2>Рекомендованный маршрут</h2>
+        <div id="routePath" class="route-path"></div>
+        <div id="routeMetrics" class="metrics"></div>
+        <p id="routeExplain" class="explain"></p>
+      </div>
+    </section>
+    <section id="carrier" class="panel">
+      <div class="controls compact">
+        <p>Веса TOPSIS берутся из вкладки «Маршрут». Вместимость получает 20% итогового веса.</p>
+        <button id="calcCarrier" class="primary">Построить рейтинг</button>
+      </div>
+      <div class="result"><h2>Рейтинг перевозчиков</h2><div class="table-wrap"><table id="carrierTable"></table></div><p id="carrierExplain" class="explain"></p></div>
+    </section>
+    <section id="schedule" class="panel">
+      <div class="controls compact"><p>PERT оценивает ожидаемую длительность этапа: (O + 4M + P) / 6.</p><button id="calcPert" class="primary">Рассчитать PERT</button></div>
+      <div class="result"><h2>План доставки</h2><div class="table-wrap"><table id="pertTable"></table></div><div id="pertMetrics" class="metrics"></div><p id="pertExplain" class="explain"></p></div>
+    </section>
+    <section id="scenarios" class="panel">
+      <div class="result full"><h2>Сравнение сценариев</h2><p>Одни и те же данные проверяются при разных приоритетах.</p><div id="scenarioGrid" class="scenario-grid"></div></div>
+    </section>
+  </main>
+  <footer>Учебный прототип. Исходные данные демонстрационные.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
